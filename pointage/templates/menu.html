@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Buttons</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5; /* Light grey background */
+        }
+
+        button {
+            margin: 10px;
+            padding: 15px 20px;
+            font-size: 18px;
+            background-color: #34a4b0; /* Light blue button color */
+            color: #fff; /* White text color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #257487; /* Darker blue on hover */
+        }
+        .back-button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #34a4b0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'table_employe' id %}"><button>table d'employe</button></a>
+    {% if i %}
+    <a href="{% url 'pointage' id %}"><button>table de pointage</button></a>
+    {% endif %}
+    <a href="{% url 'add_employe' id %}"><button>ajouter employe</button></a>
+    <a href="{% url 'login'  %}" class="back-button">Se déconnecter </a>
+</body>
+</html>

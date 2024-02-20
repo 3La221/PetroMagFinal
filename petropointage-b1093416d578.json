@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "petropointage",
+  "private_key_id": "b1093416d5785a36c09304214cee950d15261acd",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCx5I0Ij0DbKvef\nmjNLrFOeKpjDcGnFm1D9mEUGV0p1ZWCeFuPNlQOyiAio87fnkopwSIZnPRK0rH/b\nWe6dM/3TViJBQtWwgwTXeKHk5ndJumXfZIzMANXvGiswAedZNxY3NUmf4ZYEZpAB\n1ghi4fagxhfE9aMSg//GoSK0Frhm76FC9HKSCKm2K36fdQx7pz01u5e2fW7mJn0o\nogCXiuH4ofyR1iJgSvfdegxE/OHFIfJ2+I8y3u6ntPrhbKsK7kN/ao91d23HiRKe\npCPzk8ARsnTulPchT7IdWIr5ND33jjojctNil7cRHfb2xJr20iUV3Y+IxCVYJ8r7\ny68m36UlAgMBAAECggEABvs9PbTBitho126pzLJ6pZ5uWF01CXhK+WjcbJ9IYMsV\nu56SWiMa/gqwrFDESuZJYJa4D50p+sU6T1V8M9cygvTCa2VAFalOq1YkpGMXE2Gp\nVdcQX4E45CVWxI+OkMXErW398bRcutd7l1bbBWZw02Zy0FwDhlp/0z/HqOGrYv67\nyMac1E8THNe2PwH76XJ+ERVINSHBxpLmnnae/W60KEXeAdphKVb0lPHE1+girDDT\n7OTWVfTUh3kCiuntA5pIg4NknTjantHd/ROMPeBC+rUPieAYNR8xaNNPaktsZRwD\nPMLziO5Gpccf5nA2ZCPsrCowFnFEkW29P6Afxqi4kQKBgQDZCgvVfy/jxW0HMx1G\n7wU+Ml3gaEuk40ZMpO8Yb9igk3tiTGveO1YK15q5DnH9DMxGkbcWGi4qVpYdb8LK\n3gudTonvpWBGOPVquuA7JY/RGt4YkmfIN/+n9XnceXn599aFrMe2OPLancRWkPCC\ncuEdgwMsbGbbYOk6HeTYflHoawKBgQDR04tKXoBx8UJW51fhE8JLGVQISNK+brPg\nwH1piw+onRYNXBH6hH9JAHZwHCsVqHWCt2T7zeyjPdthO95vv93cKIaiI/NWkbac\ncvDEbs+xWye+zhRKqN/pgcbFCGcvpBs0L/sb+uHRTCgXSMDnHJgqM9ACsx9HTwCW\ns/YG9CZMrwKBgQCEvxRF3KjZ0yLASI8bl43JYNzyKFg73ZZdwnNKqv4AGLRahwti\nvT//GafUj/VAJNe8QduNdS3PT245SuYFVpIcALF1Fd0wlh3kza/f/TVdW+WDeeho\nGXgQrp9+Lf5g2SkoUWlFFsfS1rQDjlrMLp9pgXwra5Htk/SSSz5w+7H1SQKBgGAr\ny438nnabE8LtKfQ5sDXnmAJsDlvGNZ/v2guD91tbFH5vErZ2ADkfgymDX6P/oEyX\nbiuTiMCRW3nHjP4/PJrp4Dt0qtWk18QBUqVV/M/XbfIgVmCZ4ncOSmKIpXLKjsVu\nsHN0nAfoFgAGEpRbIMtHEDIMk2uFpElulnc9dEh1AoGBAKzxIkT+Y+H8UJnS6Da+\nZevGinsgtZns/YLmUGjkAcbR5sR8cyuY3J+1aJsajgZlOXfTdQ4jueV2ima5I0r7\nBnXkizBfbDS2i/zGy084uk+ddRJzW5nfs5crdZv57KCgnIwGH6V4Erhru6e6iyl0\nTbdiuzySRHlqn5M8pVODQI08\n-----END PRIVATE KEY-----\n",
+  "client_email": "pointage@petropointage.iam.gserviceaccount.com",
+  "client_id": "106393655561697726056",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/pointage%40petropointage.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
