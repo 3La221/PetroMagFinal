@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instances Table</title>
+    <title>Table de employe</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0; /* Add overflow-y property for vertical scrollbar */
+}
 
         h2 {
             margin-top: 20px;
+            padding: 10px;
         }
 
         table {
@@ -33,7 +34,7 @@
         }
 
         th {
-            background-color: #ff9900; /* Light orange header */
+            background-color: #ff9900;
         }
 
         td {
@@ -45,6 +46,7 @@
             text-decoration: none;
             color: #007BFF;
             font-weight: bold;
+            margin-right: 10px; /* Adjust margin as needed */
         }
 
         .back-button {
@@ -56,50 +58,55 @@
             border-radius: 5px;
             text-decoration: none;
         }
-        .button {
-    display: inline-block;
-    margin-left: 20px; /* Adjust the margin as needed */
-    padding: 10px;
-    background-color: #34a4b0;
-    color: white;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.error-message {
-        max-width: 300px; /* Adjust the maximum width as needed */
-        margin: 0 auto; /* Center the element horizontally */
-        background-color: #ffcccc; /* Light red background color */
-        padding: 10px;
-        border-radius: 5px;
-        text-align: center;
-        margin-top: 20px; /* Add some top margin for spacing */
-    }
-    label {
-        font-size: 16px;
-        font-style: bold;
-        color: black; /* White text color */
-        background-color: #ff9900; /* Light orange background */
-        padding: 8px 10px; /* Adjust the padding as needed */
-        border-radius: 5px; /* Rounded corners */
-        display: block; /* Display as block to move it to a new line */
-        margin-bottom: 20px; /* Add margin to create space between the label and the form */
-    }
 
-    form {
-        width: 60%; /* Adjust the width as needed */
-        padding: 20px;
-        margin-bottom: 20px; /* Add margin to create space between the form and the label */
-        text-align: center;
-    }
-    h2 {
-        padding: 10px;
-        margin-top: -10px; /* Adjust the margin as needed */
-    }
+        .button {
+            display: inline-block;
+            margin-top: 20px; /* Adjust margin as needed */
+            padding: 10px;
+            background-color: #34a4b0;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px; /* Adjust margin as needed */
+        }
+
+        .error-message {
+            max-width: 300px;
+            margin: 0 auto;
+            background-color: #ffcccc;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: black;
+            background-color: #ff9900;
+            padding: 8px 10px;
+            border-radius: 5px;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        form {
+            width: 60%;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            padding: 10px;
+            margin-top: -10px;
+        }
     </style>
-    
 </head>
+
 <body>
     <h2>Table de employe</h2>
     <form method="get" action="{% url 'employee_search' instances.0.ID_Station_id %}">
@@ -125,17 +132,16 @@
         <tr>
             <td>{{ instance.ID }}</td>
             <td>{{ instance.Nom }}</td>
-            <td>{{instance.Prenom}}</td>
+            <td>{{ instance.Prenom }}</td>
             <td>
                 <a href="{% url 'update_employe' instance.ID %}" class="button">Modifier</a>
                 <a href="{% url 'main_view' instance.ID %}" class="button">Fuielle de Pointage</a>
                 <a href="{% url 'pointage_mois' instance.ID %}" class="button">Pointage de mois</a>
             </td>
-            
         </tr>
         {% endfor %}
     </table>
     <a href="{% url 'menu_view' id %}" class="back-button">Retour</a>
 </body>
-</html>
 
+</html>

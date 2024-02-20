@@ -14,11 +14,11 @@ class Chef_Station(models.Model):
     
 
 class Employe(models.Model):
-    ID=models.AutoField(primary_key=True)
+    ID=models.IntegerField(primary_key=True)
     Nom=models.CharField(max_length=30)
     Prenom=models.CharField(max_length=30)
     Adresse=models.CharField(max_length=50,null=True)
-    Date_Recrutement=models.DateField(default=datetime.now)
+    Date_Recrutement=models.DateField(default=datetime.now().date(),null=True)
     Affect_Origin=models.CharField(max_length=30,null=True)
     Fonction=models.CharField(max_length=30)
     Date_Detach= models.DateField(null=True)

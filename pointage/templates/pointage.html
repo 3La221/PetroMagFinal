@@ -12,7 +12,6 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
             margin: 0;
         }
 
@@ -52,20 +51,24 @@
         }
 
         .date-group {
-            display: flex;
-            flex-direction: row; /* Make them appear horizontally */
-            align-items: center;
-            margin-bottom: 10px; /* Add margin-bottom for spacing */
-        }
+    display: flex;
+    flex-direction: row; /* Make them appear horizontally */
+    align-items: center;
+    margin-bottom: 5px; /* Add margin-bottom for spacing */
+}
 
-        .date-group label {
-            margin-right: 5px; /* Add margin-right to separate label and select */
-        }
+.date-group label {
+    margin-right: 10px; /* Add margin-right to separate label and select */
+}
 
-        .date-group select {
-            width: 100%; /* Make the select box cover the full width of the cell */
-            margin-left: 5px; /* Add margin-left to separate label and select */
-        }
+.date-group select { /* Set a fixed width for the select box */
+    height: 30px; /* Set a fixed height for the select box */
+    margin-left: 0; /* Remove margin-left to align the select box with the label */
+}
+
+td.date-group {
+    height: 40px; /* Set a fixed height for the td.date-group element */
+}
 
         input[type="submit"] {
             margin-top: 20px;

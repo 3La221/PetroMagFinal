@@ -42,12 +42,8 @@ def pointage(request,ID):
                 spreadsheetId=spreadsheet_id, range=sheet_range,
                 valueInputOption='RAW', body=body
                 ).execute()
-        control=Last_Update.objects.get(pk=ID)
-        control.date=datetime.now().date()
-        control.save()
         return redirect(main_view,i.ID)
     else:
-        control=Last_Update.objects.get(pk=ID)
         context={'date':date,'instances':instances,'date_range':date_range}
         return render(request,'pointage.html',context)       
 
@@ -80,9 +76,9 @@ def menu_view(request,ID):
     return render(request, 'menu.html',{'id':ID,"i":i})
 
 def add_chef_station(request):
-    '''Chef_Station.objects.all().delete()
+    '''Last_Update.objects.all().delete()
     with connection.cursor() as cursor:
-            cursor.execute("DELETE FROM sqlite_sequence WHERE name='pointage_chef_station';")
+            cursor.execute("DELETE FROM sqlite_sequence WHERE name='pointage_last_update';")
 
 # Step 3: Vacuum the database to reclaim storage space
     with connection.cursor() as cursor:
@@ -92,8 +88,6 @@ def add_chef_station(request):
         if form.is_valid():
             form.save()
             now=datetime.now().date()
-            control=Last_Update(date=now.replace(day=now.day-1))
-            control.save()
             # Redirect to a success page or homepage
             return redirect('login')
     else:
@@ -101,7 +95,65 @@ def add_chef_station(request):
 
     return render(request, 'add_chef_station.html', {'form': form})
 
-def add_employe(request,ID):
+def add_employe(request,ID):#the first part is a script that takes information from a sheet and create instances for each employe in that sheet If you want to use it you should modify model so that it won't check for pk
+    '''credentials = service_account.Credentials.from_service_account_file(
+        './petropointage-b1093416d578.json',
+        scopes=['https://www.googleapis.com/auth/spreadsheets'],
+        )
+
+        # Specify the ID of your Google Sheet
+    spreadsheet_id = '1JfI_phAUr1L5069xB-Wv9ctXlaJgtFdurxBu0TsQ1SA'
+    service = build('sheets', 'v4', credentials=credentials)
+    max=14
+    if ID == 1:
+        max+=13
+        sheet='R770-01-(13)'
+    elif ID == 2:
+        max+=9
+        sheet='R770-02-(9)'
+    elif ID == 3:
+        max+=19
+        sheet='R770-03-(19)'
+    elif ID == 4:
+        max+=14
+        sheet='R770-04-(14)'
+    elif ID== 5:
+        max+=11
+        sheet='R770-05-(11)'
+    ranges=[]
+    column=['C','D','E','F']
+    for row in range(14,max): #this loop will prepare the range of the information to be fetched (used in .get)
+        range_list = [f'{sheet}!{column[0]}{row}',f'{sheet}!{column[1]}{row}',f'{sheet}!{column[2]}{row}',f'{sheet}!{column[3]}{row}']
+        ranges.append(range_list)
+
+# Fetch values from each range
+    all_values = []
+    for range_ in ranges:
+        print(range_)
+        result = service.spreadsheets().values().batchGet(spreadsheetId=spreadsheet_id, ranges=range_).execute()
+        for value_range in result['valueRanges']:
+            values = value_range.get('values', [])
+            all_values.append(values)
+        employe=Employe()
+        i=0
+        for values_list in all_values:
+            for row in values_list:
+                for value in row:
+                    if i==0:
+                        employe.ID=int(value)
+                    elif i==1:
+                        employe.Nom=value
+                    elif i==2:
+                        employe.Prenom=value
+                    elif i==3 :
+                        employe.Fonction=value
+                    i+=1
+        employe.ID_Station_id=ID
+        employe.save()
+        all_values=[]
+
+        print('next\n')'''
+        
     if request.method == 'POST':
         form = EmployeForm(request.POST)
         if form.is_valid():
