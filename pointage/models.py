@@ -3,26 +3,55 @@ from datetime import datetime
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 import requests
+from django.contrib.auth.models import User
+from django.utils import timezone
+from django.utils.translation import gettext as _
 
-class Chef_Station(models.Model):
-    ID=models.AutoField(primary_key=True)
+
+class Code(models.Model):
+    ID=models.CharField(primary_key=True,max_length=3)
+    Description=models.TextField()
+
+
+class Code_Employe(models.Model):
+    employe=models.ForeignKey("Profile",on_delete=models.CASCADE,related_name="code_emp")
+    date=models.DateField(default=datetime.now())
+    code=models.ForeignKey(Code,on_delete=models.CASCADE)
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,default=1,related_name="profile")
+    station = models.ForeignKey("Station",on_delete=models.CASCADE,null=True)
+    da = models.IntegerField(default=3)
+    def __str__(self):
+        if self.da == 3 :
+            return f'Respon Pointage {self.station}'
+        elif self.da == 2:
+            return f'Chef Station {self.station}'
+        else : 
+            return f'Directeur Generale'
+
+
+class Station(models.Model):
+    
     Nom_Station=models.CharField(max_length=40,unique=True)
-    Password=models.CharField(max_length=40)
+    
+    
     
     def __str__(self):
         return self.Nom_Station
-    
+
 
 class Employe(models.Model):
     ID=models.IntegerField(primary_key=True)
     Nom=models.CharField(max_length=30)
     Prenom=models.CharField(max_length=30)
     Adresse=models.CharField(max_length=50,null=True)
-    Date_Recrutement=models.DateField(default=datetime.now().date(),null=True)
+    Date_Recrutement=models.DateField(default=timezone.now().date())
     Affect_Origin=models.CharField(max_length=30,null=True)
     Fonction=models.CharField(max_length=30)
     Date_Detach= models.DateField(null=True)
-    ID_Station=models.ForeignKey(Chef_Station,on_delete=models.CASCADE,null=True)
+    station=models.ForeignKey(Station,on_delete=models.CASCADE,null=True)
     Situation_Familliale=models.CharField(max_length=30,null=True)
     Nbr_Enfants=models.IntegerField(null=True)
     Sheet_ID=models.IntegerField(unique=True,null=True)

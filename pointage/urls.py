@@ -13,4 +13,6 @@ urlpatterns = [
     path('employee_search/<int:ID>/', views.employee_search, name='employee_search'),
     path('affichage_mois/<int:ID>/', views.affichage_mois, name='affichage_mois'),
     path('pointage_mois/<int:ID>/', views.pointage_mois, name='pointage_mois'),
+    
+    path("logout/",views.logout_view,name="logout")
 ]

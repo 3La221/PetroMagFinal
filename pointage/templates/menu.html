@@ -43,10 +43,8 @@
 </head>
 <body>
     <a href="{% url 'table_employe' id %}"><button>table d'employe</button></a>
-    {% if i %}
     <a href="{% url 'pointage' id %}"><button>table de pointage</button></a>
-    {% endif %}
     <a href="{% url 'add_employe' id %}"><button>ajouter employe</button></a>
-    <a href="{% url 'login'  %}" class="back-button">Se déconnecter </a>
+    <a href="{% url 'logout'  %}" class="back-button">Se déconnecter </a>
 </body>
 </html>

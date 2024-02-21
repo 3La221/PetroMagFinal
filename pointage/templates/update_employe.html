@@ -59,6 +59,6 @@
         {{ form.as_p }}
         <button type="submit">Modifier</button>
     </form>
-    <a href="{% url 'table_employe' i.ID_Station_id %}" class="back-button">Retour</a>
+    <a href="{% url 'table_employe' i.station.id %}" class="back-button">Retour</a>
 </body>
 </html>

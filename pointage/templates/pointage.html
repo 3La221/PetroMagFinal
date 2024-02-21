@@ -23,6 +23,7 @@
 
         table {
             width: 80%;
+            max-width: 600px;
             border-collapse: collapse;
             margin-top: 20px;
         }
@@ -30,6 +31,7 @@
         th, td {
             border: 1px solid #ddd;
             text-align: center;
+            padding: 10px;
         }
 
         th {
@@ -51,24 +53,24 @@
         }
 
         .date-group {
-    display: flex;
-    flex-direction: row; /* Make them appear horizontally */
-    align-items: center;
-    margin-bottom: 5px; /* Add margin-bottom for spacing */
-}
+            display: flex;
+            flex-direction: row; /* Make them appear horizontally */
+            align-items: center;
+            margin-bottom: 5px; /* Add margin-bottom for spacing */
+        }
 
-.date-group label {
-    margin-right: 10px; /* Add margin-right to separate label and select */
-}
+        .date-group label {
+            margin-right: 10px; /* Add margin-right to separate label and select */
+        }
 
-.date-group select { /* Set a fixed width for the select box */
-    height: 30px; /* Set a fixed height for the select box */
-    margin-left: 0; /* Remove margin-left to align the select box with the label */
-}
+        .date-group select {
+            height: 30px; /* Set a fixed height for the select box */
+            margin-left: 0; /* Remove margin-left to align the select box with the label */
+        }
 
-td.date-group {
-    height: 40px; /* Set a fixed height for the td.date-group element */
-}
+        td.date-group {
+            height: 40px; /* Set a fixed height for the td.date-group element */
+        }
 
         input[type="submit"] {
             margin-top: 20px;
@@ -79,6 +81,30 @@ td.date-group {
             border: none;
             border-radius: 5px;
             font-size: 1em;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .step-links a {
+            padding: 10px;
+            margin: 0 5px;
+            text-decoration: none;
+            color: #007BFF;
+            border: 1px solid #007BFF;
+            border-radius: 5px;
+        }
+
+        .step-links .current {
+            padding: 10px;
+            margin: 0 5px;
+            background-color: #007BFF;
+            color: white;
+            border: 1px solid #007BFF;
+            border-radius: 5px;
         }
 
         .back-button {
@@ -96,6 +122,16 @@ td.date-group {
     <header>
         <h1>{{ date|date:"Y-m-d" }}</h1>
     </header>
+    <form method="get" action="">
+        <label for="query">Rechercher:</label>
+        <input type="text" id="query" name="query" placeholder="ID" required>
+        {% if message %}
+        <div class="error-message">
+            {{ message }}
+        </div>
+        {% endif %}
+    </form>
+
     <table>
         <tr>
             <th>ID</th>
@@ -103,7 +139,7 @@ td.date-group {
             <th>jour</th>
         </tr>
         {% for i in instances %}
-            <form action="{% url 'pointage' instances.0.ID_Station_id %}" method="POST">
+            <form action="{% url 'pointage' instances.0.station.id %}" method="POST">
                 <tr>
                     {% csrf_token %}
                     <td>{{ i.ID }}</td>
@@ -112,28 +148,82 @@ td.date-group {
                         {% for date in date_range %}
                             <label for="{{i.ID}}_{{date|date:'Y-m-d'}}">{{date|date:"d"}}</label>
                             <select id="{{i.ID}}_{{date|date:'Y-m-d'}}" name="{{i.ID}}_{{date|date:'Y-m-d'}}">
-                                <option value="T">T</option>
-                                <option value="R">R</option>
-                                <option value="I">I</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="M">M</option>
-                                <option value="A">A</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="C">C</option>
-                                <option value="Cr">Cr</option>
+                                <option value="" selected >__</option>    
+                                {% for c_emp in codes_emp %}
+                                        {% if c_emp.ID_Employe_id == i.ID and c_emp.Date == date %}
+                                                <option value="{{c_emp.ID_Code_id}}" selected>{{c_emp.ID_Code_id}}</option>
+                                        {% endif %}        
+                                    {% endfor %}
+                                    
+                                {% for code in codes %}
+                                    <option value={{code.ID}}>{{code.ID}}</option>
+                                {% endfor %}
                             </select>
                         {% endfor %}
                     </td>
                 </tr>
-        {% endfor %}
-            <input type="submit" value="Soumettre">
+                {% endfor %}
+                <input type="submit" value="Soumettre">
             </form>
-        
     </table>
-    <a href="{% url 'menu_view' instances.0.ID_Station_id %}" class="back-button">Retour</a>   
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if instances.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ instances.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ instances.number }} of {{ instances.paginator.num_pages }}.
+            </span>
+
+            {% if instances.has_next %}
+                <a href="?page={{ instances.next_page_number }}">next</a>
+                <a href="?page={{ instances.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <table>
+        <tr>
+            <th>Code</th>
+            <th>descripton</th>
+        </tr>
+        {% for code in codes %}
+        <tr>
+            <td>{{code.ID}}</td>
+            <td>{{code.Description}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{% url 'menu_view' %}" class="back-button">Retour</a>   
 </body>
+
+<script>
+    // Function to handle the search functionality
+    function search() {
+        // Get the input value
+        var query = document.getElementById('query').value.toLowerCase();
+        // Get all table rows
+        var rows = document.querySelectorAll('table tr');
+
+        // Loop through each row
+        for (var i = 1; i < rows.length; i++) { // Start from 1 to skip the header row
+            var id = rows[i].getElementsByTagName('td')[0].innerText.toLowerCase();
+            var name = rows[i].getElementsByTagName('td')[1].innerText.toLowerCase();
+            // Check if the query matches the ID or Name
+            if (id.includes(query) || name.includes(query)) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none'; // Hide the row if it doesn't match
+            }
+        }
+        
+    }
+
+    // Add event listener to the input field
+    document.getElementById('query').addEventListener('input', search);
+</script>
 </html>
